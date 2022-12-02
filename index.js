@@ -7,15 +7,31 @@ const { configuratorRouter } = require('./routes/configurator')
 const { orderRouter } = require('./routes/order')
 const { handlebarsHelpers } = require('./utils/handlebars-helpers')
 
-const app = express()
-app.use(cookieParser())
-app.use(express.json())
-app.use(express.static('public'))
-app.engine('.hbs', engine({ extname: '.hbs', helpers: handlebarsHelpers }))
-app.set('view engine', '.hbs')
+class CookieMakerApp {
+    constructor(){
+        this.app = express()
+        this._configureApp()
+        this._setRoutes()
+        this._run()
+    }
 
-app.use('/', homeRouter)
-app.use('/configurator', configuratorRouter)
-app.use('/order', orderRouter)
+    _configureApp(){
+        this.app.use(cookieParser())
+        this.app.use(express.json())
+        this.app.use(express.static('public'))
+        this.app.engine('.hbs', engine({ extname: '.hbs', helpers: handlebarsHelpers }))
+        this.app.set('view engine', '.hbs')
+    }
 
-app.listen(3000, 'localhost')
+    _setRoutes(){
+        this.app.use('/', homeRouter)
+        this.app.use('/configurator', configuratorRouter)
+        this.app.use('/order', orderRouter)
+    }
+
+    _run(){
+        this.app.listen(3000, 'localhost')
+    }
+}
+
+new CookieMakerApp()
