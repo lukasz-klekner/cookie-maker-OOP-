@@ -1,0 +1,50 @@
+.cookie-preview {
+    width: 601px;
+    height: 640px;
+}
+
+.error {
+    border: 2px solid red;
+    padding: 15px 10px;
+    background-color: rgb(239, 155, 155);
+}
+
+.success {
+    border: 2px solid green;
+    padding: 15px 10px;
+    background-color: rgb(173, 241, 173);
+}
+
+.btn {
+    background: #b0a797;
+    color: black;
+    border-radius: 3px;
+    border: 1px solid #463412;
+    padding: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 3px;
+    display: inline-block;
+}
+
+.btn-small {
+    margin: 0;
+    padding: 0 5px;
+}
+
+.btn-disabled {
+    background: #585858;
+    color: white;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn-big {
+    font-size: 120%;
+    padding: 10px 20px;
+}
+
+.cart-img {
+    width: 32px;
+    vertical-align: middle;
+}
