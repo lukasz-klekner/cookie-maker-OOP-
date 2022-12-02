@@ -4,7 +4,7 @@ const { engine } = require('express-handlebars')
 
 const { HomeRouter } = require('./routes/home')
 const { ConfiguratorRouter } = require('./routes/configurator')
-const { orderRouter } = require('./routes/order')
+const { OrderRouter } = require('./routes/order')
 const { handlebarsHelpers } = require('./utils/handlebars-helpers')
 
 class CookieMakerApp {
@@ -26,7 +26,7 @@ class CookieMakerApp {
     _setRoutes(){
         this.app.use('/', new HomeRouter().router)
         this.app.use('/configurator', new ConfiguratorRouter().router)
-        this.app.use('/order', orderRouter)
+        this.app.use('/order', new OrderRouter().router)
     }
 
     _run(){
