@@ -10,6 +10,7 @@ const { COOKIE_ADDONS, COOKIE_BASES} = require('./data/cookies')
 
 class CookieMakerApp {
     constructor(){
+        this._loadData()
         this.app = express()
         this._configureApp()
         this._setRoutes()
@@ -34,6 +35,13 @@ class CookieMakerApp {
         this.app.listen(3000, 'localhost')
     }
 
+    _loadData() {
+        this.data = {
+            COOKIE_ADDONS,
+            COOKIE_BASES
+        }
+    }
+
     getAddonsFromRequest = (req) => {
         const { cookieAddons } = req.cookies
         return cookieAddons ? JSON.parse(cookieAddons) : []
@@ -43,8 +51,8 @@ class CookieMakerApp {
         const { cookieBase: base } = req.cookies
         const addons = this.getAddonsFromRequest(req)
 
-        const allBases = Object.entries(COOKIE_BASES)
-        const allAddons = Object.entries(COOKIE_ADDONS)
+        const allBases = Object.entries(this.data.COOKIE_BASES)
+        const allAddons = Object.entries(this.data.COOKIE_ADDONS)
 
         const sum = (base ? handlebarsHelpers['find-price'](allBases, base) : 0) + addons.reduce((prev, current) => prev + handlebarsHelpers['find-price'](allAddons ,current), 0)
 
