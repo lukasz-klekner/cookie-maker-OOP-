@@ -56,6 +56,12 @@ class CookieMakerApp {
             addons,
         }
     }
+
+    showErrorPage = (res, description) => {
+        return res.render('error', {
+            description
+        })
+    }
 }
 
 new CookieMakerApp()

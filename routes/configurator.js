@@ -18,9 +18,7 @@ class ConfiguratorRouter {
         const { baseName} = req.params
 
         if(!COOKIE_BASES[baseName]){
-            return res.render('error', {
-                description: `There is no such base as ${baseName}`
-            })
+            return this.cmapp.showErrorPage(res, `There is no such base as ${baseName}`)
         }
 
         res.cookie('cookieBase', baseName).render('configurator/base-selected', {
@@ -32,17 +30,13 @@ class ConfiguratorRouter {
         const { addonName } = req.params
 
         if(!COOKIE_ADDONS[addonName]){
-            return res.render('error', {
-                description: `There is no such addon as ${addonName}`
-            })
+            return this.cmapp.showErrorPage(res, `There is no such addon as ${addonName}`)
         }
 
         const addons = this.cmapp.getAddonsFromRequest(req)
 
         if(addons.includes(addonName)){
-            return res.render('error', {
-                description: `${addonName} is already on your cookie. Please choose another addon!`
-            })
+            return this.cmapp.showErrorPage(res, `${addonName} is already on your cookie. Please choose another addon!`)
         }
 
         addons.push(addonName)
@@ -58,11 +52,8 @@ class ConfiguratorRouter {
         const addonsFromCookies = this.cmapp.getAddonsFromRequest(req)
 
         if(!addonsFromCookies.includes(addonName)){
-            return res.render('error', {
-                description: `Cannot delete sth that is not already added to the cookie. ${addonName} not found on cookie.`
-            })
+            return this.cmapp.showErrorPage(res, `Cannot delete sth that is not already added to the cookie. ${addonName} not found on cookie.`)
         }
-
 
         const addons = addonsFromCookies.filter(addon => addon !== addonName)
 
