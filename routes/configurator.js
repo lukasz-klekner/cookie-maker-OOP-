@@ -1,9 +1,9 @@
 const express = require('express')
 const { COOKIE_ADDONS, COOKIE_BASES } = require('../data/cookies')
-const { getAddonsFromRequest } = require('../utils/get-addons-from-request')
 
 class ConfiguratorRouter {
-    constructor() {
+    constructor(cmapp) {
+        this.cmapp = cmapp
         this.router = express.Router()
         this.setUpRoutes()
     }
@@ -37,7 +37,7 @@ class ConfiguratorRouter {
             })
         }
 
-        const addons = getAddonsFromRequest(req)
+        const addons = this.cmapp.getAddonsFromRequest(req)
 
         if(addons.includes(addonName)){
             return res.render('error', {
@@ -55,7 +55,7 @@ class ConfiguratorRouter {
     deleteAddon = (req, res) => {
         const { addonName } = req.params
 
-        const addonsFromCookies = getAddonsFromRequest(req)
+        const addonsFromCookies = this.cmapp.getAddonsFromRequest(req)
 
         if(!addonsFromCookies.includes(addonName)){
             return res.render('error', {
