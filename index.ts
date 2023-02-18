@@ -1,3 +1,4 @@
+import * as express from "express";
 import { Application, Request, Response, json, static as expressStatic } from 'express';
 import * as cookieParser from 'cookie-parser'
 import { engine } from 'express-handlebars';
@@ -9,7 +10,7 @@ import { handlebarsHelpers } from './utils/handlebars-helpers';
 import { COOKIE_ADDONS, COOKIE_BASES} from'./data/cookies';
 
 export class CookieMakerApp {
-    private app: Application
+    private app: Application = express()
     public readonly data = {
         COOKIE_ADDONS,
         COOKIE_BASES
