@@ -1,17 +1,20 @@
+import { Request, Response, Router } from "express"
+import { CookieMakerApp } from "../index"
+
 const express = require('express')
 
-class HomeRouter {
-    constructor(cmapp) {
-        this.cmapp = cmapp
-        this.router = express.Router()
+export class HomeRouter {
+    public readonly router: Router = Router()
+
+    constructor(private cmapp: CookieMakerApp) {
         this.setUpRoutes()
     }
 
-    setUpRoutes(){
+    private setUpRoutes(){
         this.router.get('/', this.home)
     }
 
-    home = (req, res) => {
+    private home = (req: Request, res: Response) => {
         const { allAddons, allBases, sum, base, addons } = this.cmapp.getCookieSettings(req)
 
         res.render('home/index', {
@@ -24,8 +27,4 @@ class HomeRouter {
         sum,
         })
     }
-}
-
-module.exports = {
-    HomeRouter
 }
