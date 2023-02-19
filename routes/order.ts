@@ -1,9 +1,12 @@
 import { Request, Response, Router } from "express"
 import { CookieMakerApp } from "../index"
+import { MyRouter } from "../types/my-router"
 
 
-export class OrderRouter {
-    public router: Router = Router()
+export class OrderRouter implements MyRouter {
+    readonly url: string = '/order'
+    router: Router = Router()
+
     constructor(private cmapp: CookieMakerApp){
         this.setUpRoutes()
     }

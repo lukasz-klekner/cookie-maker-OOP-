@@ -1,10 +1,12 @@
 import { Request, Response, Router } from "express"
 import { CookieMakerApp } from "../index"
+import { MyRouter } from "../types/my-router"
 
 const express = require('express')
 
-export class HomeRouter {
-    public readonly router: Router = Router()
+export class HomeRouter implements MyRouter {
+    readonly url: string = '/'
+    readonly router: Router = Router()
 
     constructor(private cmapp: CookieMakerApp) {
         this.setUpRoutes()
